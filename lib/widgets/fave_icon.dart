@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:trump_machine/models/quote.dart';
-
 import 'package:trump_machine/services.dart';
 
 class FaveIcon extends StatefulWidget {
@@ -27,12 +25,17 @@ class _FaveIconState extends State<FaveIcon> {
         setState(() {
           if (fave) {
             setState(() {
-              widget.quote.setFave = true;
-              service.faveList.add(widget.quote);
+              fave = false;
+              service.faveList.remove(widget.quote.value);
+
+              print('removing ${widget.quote.value}');
             });
           } else {
             setState(() {
-              service.faveList.remove(widget.quote);
+              fave = true;
+              service.faveList.add(widget.quote.value);
+
+              print('adding ${widget.quote.value}');
             });
           }
         });

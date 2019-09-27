@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: InputDecoration(
           prefixIcon: Icon(FontAwesomeIcons.search),
           labelText: 'What does Trump say about....'),
-      autofocus: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (value) {
         searchNode.unfocus();

@@ -6,12 +6,6 @@ class Quote extends ChangeNotifier {
   final String value;
   final List tags;
   final List source;
-  bool _isFavorite = false;
-
-  set setFave(bool val) {
-    _isFavorite = val;
-    notifyListeners();
-  }
 
   Quote(
     this.appeardAt,

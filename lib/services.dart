@@ -32,11 +32,6 @@ class Services extends ChangeNotifier {
     'Accept': 'application/hal+json',
   };
 
-  incrementVotes() {
-    votes++;
-    notifyListeners();
-  }
-
   Future<Null> callApi(api, List quoteList) async {
     await http.get(api + searchTerm, headers: requestHeaders).then((response) {
       if (response.statusCode == 200) {

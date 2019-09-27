@@ -8,11 +8,12 @@ class SearchButton extends StatelessWidget {
     Key key,
     @required this.buttonNode,
     @required this.service,
+    this.noMatches,
   }) : super(key: key);
 
   final FocusNode buttonNode;
   final Services service;
-
+  final Function noMatches;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -30,10 +31,20 @@ class SearchButton extends StatelessWidget {
             FontAwesomeIcons.poop,
             color: Colors.brown,
           ),
-          onPressed: () {
-            service.callApi(service.api, service.quoteList);
-            if (service.quoteList.length > 0)
+          onPressed: () async {
+            service.quoteList = [];
+            await service.callApi(service.api, service.quoteList);
+            if (service.quoteList.length > 0) {
               Navigator.pushNamed(context, '/results');
+            } else {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                duration: Duration(milliseconds: 300),
+                elevation: 3,
+                content: Text(
+                  'No matches, try another subject',
+                ),
+              ));
+            }
           },
         ),
       ),

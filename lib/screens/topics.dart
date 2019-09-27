@@ -21,9 +21,8 @@ class TopicScreen extends StatelessWidget {
           if (snap.connectionState == ConnectionState.done &&
               service.tagList.isNotEmpty) {
             print(service.tagList.length);
-            return GridView.extent(
-                padding: EdgeInsets.all(16),
-                maxCrossAxisExtent: 160,
+            return ListView(
+                padding: EdgeInsets.all(8),
                 children: service.tagList.map((tag) {
                   return ChoiceChip(
                     selected: false,

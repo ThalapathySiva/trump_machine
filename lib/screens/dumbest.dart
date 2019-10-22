@@ -10,7 +10,9 @@ class DumbestEverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var service = Provider.of<Services>(context);
     return Scaffold(
-      appBar: TopBar(
+      
+      appBar:  TopBar(
+
         title: 'Dumbest Quotes Ever',
       ),
       bottomNavigationBar: BotNav(),

@@ -88,6 +88,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
         child: AppBar(
+      brightness: Brightness.dark,
       iconTheme: IconThemeData(color: Colors.white),
       automaticallyImplyLeading: true,
       title: Text(

@@ -9,3 +9,6 @@ This project is using the TronaldDump.io API and was developed using the Flutter
 ![](images/Screenshot_1569561060.png?v=4&s=20)
 
 ## TrumpMachine
+
+
+(My name is Cozy):

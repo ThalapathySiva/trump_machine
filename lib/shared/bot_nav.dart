@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
-import '../services.dart';
+import 'package:trump_machine/services/services.dart';
 
 class BotNav extends StatelessWidget {
   @override
@@ -11,9 +10,9 @@ class BotNav extends StatelessWidget {
     return BottomNavigationBar(
       showUnselectedLabels: true,
       unselectedItemColor: Colors.white,
-      selectedItemColor: Colors.orange,
+      selectedItemColor: Theme.of(context).accentColor,
       elevation: 3,
-      selectedIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+      selectedIconTheme: IconThemeData(color: Theme.of(context).accentColor),
       unselectedIconTheme: IconThemeData(color: Colors.white),
       currentIndex: service.getIndex,
       onTap: (number) {
@@ -57,7 +56,7 @@ class BotNav extends StatelessWidget {
           ),
         ),
       ],
-      backgroundColor: Colors.black87,
+      backgroundColor: Theme.of(context).primaryColor,
     );
   }
 }

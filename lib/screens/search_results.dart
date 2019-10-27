@@ -3,7 +3,8 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:trump_machine/services.dart';
+import 'package:trump_machine/services/services.dart';
+
 import 'package:trump_machine/widgets/fave_icon.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -14,61 +15,72 @@ class SearchResultScreen extends StatelessWidget {
     var service = Provider.of<Services>(context);
     return Scaffold(
       appBar: TopBar(title: '${service.quoteList.length.toString()} Results'),
-      body: ListView.separated(
-          separatorBuilder: (context, index) => Divider(
-                thickness: 2,
-              ),
+      body: ListView.builder(
           itemCount: service.quoteList.length,
           itemBuilder: (BuildContext context, int index) {
             var quoteText = service.quoteList[index].value;
             return Padding(
               padding: const EdgeInsets.all(16.0),
-              child: ExpansionTile(
-                leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(FontAwesomeIcons.poop),
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                initiallyExpanded: false,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FaveIcon(quote: service.quoteList[index]),
-                      IconButton(
-                        tooltip: 'Share',
-                        onPressed: () {
-                          Share.share(quoteText);
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.share,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-                title: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Linkify(
-                    onOpen: (link) async {
-                      if (await canLaunch(link.url)) {
-                        await launch(link.url);
-                      } else {
-                        throw 'Could not launch $link';
-                      }
-                    },
-                    style: Theme.of(context).primaryTextTheme.body1,
-                    humanize: true,
-                    text: quoteText,
-                  ),
-                ),
+              child: TrumpCard(
+                service: service,
+                quoteText: quoteText,
+                index: index,
               ),
             );
           }),
+    );
+  }
+}
+
+class TrumpCard extends StatelessWidget {
+  TrumpCard({
+    Key key,
+    @required this.service,
+    @required this.quoteText,
+    this.index,
+  }) : super(key: key);
+
+  final Services service;
+  final String quoteText;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+            Wrap(
+              children: <Widget>[
+                Icon(Icons.format_quote),
+                Text(quoteText),
+                Align(
+                    alignment: Alignment.bottomRight,
+                    child: Icon(Icons.format_quote))
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FaveIcon(quote: service.quoteList[index]),
+                IconButton(
+                  tooltip: 'Share',
+                  onPressed: () {
+                    Share.share(quoteText);
+                  },
+                  icon: Icon(
+                    FontAwesomeIcons.share,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

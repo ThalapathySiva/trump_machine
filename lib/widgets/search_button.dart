@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../services.dart';
+import 'package:trump_machine/services/services.dart';
 
 class SearchButton extends StatelessWidget {
   const SearchButton({
@@ -17,19 +16,20 @@ class SearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 3,
+      elevation: 5,
       child: Container(
         child: FlatButton.icon(
           focusNode: buttonNode,
           padding: EdgeInsets.all(24),
-          color: Colors.orange,
+          color: Theme.of(context).accentColor,
           label: Text(
             'Search',
-            style: TextStyle(color: Colors.white, fontSize: 24),
+            style:
+                TextStyle(color: Theme.of(context).primaryColor, fontSize: 24),
           ),
           icon: Icon(
             FontAwesomeIcons.poop,
-            color: Colors.brown,
+            color: Theme.of(context).primaryColor,
           ),
           onPressed: () async {
             service.quoteList = [];

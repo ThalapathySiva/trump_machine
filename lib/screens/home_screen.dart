@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
+import 'package:trump_machine/services/services.dart';
 
 import 'package:trump_machine/shared/bot_nav.dart';
+import 'package:trump_machine/style/trump_theme.dart';
 import 'package:trump_machine/widgets/search_button.dart';
-
-import '../services.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

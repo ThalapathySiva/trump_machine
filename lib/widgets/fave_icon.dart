@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trump_machine/models/quote.dart';
-import 'package:trump_machine/services.dart';
+
+import 'package:trump_machine/services/services.dart';
 
 class FaveIcon extends StatefulWidget {
   final Quote quote;

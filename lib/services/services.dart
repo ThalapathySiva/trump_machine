@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'models/quote.dart';
+import 'package:trump_machine/models/quote.dart';
 
 class Services extends ChangeNotifier {
   List<Quote> quoteList = [];
   List tagList = [];
   List faveList = [];
+
   int votes = 0;
   String api = 'https://api.tronalddump.io/search/quote?query=';
 

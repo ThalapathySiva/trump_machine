@@ -5,7 +5,8 @@ import 'package:trump_machine/screens/dumbest.dart';
 import 'package:trump_machine/screens/home_screen.dart';
 import 'package:trump_machine/screens/search_results.dart';
 import 'package:trump_machine/screens/topics.dart';
-import 'package:trump_machine/services.dart';
+import 'package:trump_machine/services/services.dart';
+import 'package:trump_machine/style/trump_theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       builder: (context) => Services(),
       child: Consumer<Services>(
         builder: (context, services, _) {
+          TrumpTheme theme = TrumpTheme();
           return MaterialApp(
             routes: {
               '/topics': (context) => TopicScreen(),
@@ -27,13 +29,7 @@ class MyApp extends StatelessWidget {
             },
             debugShowCheckedModeBanner: false,
             title: 'Trump Machine',
-            theme: ThemeData(
-              brightness: Brightness.light,
-              iconTheme: IconThemeData(
-                color: Colors.brown,
-              ),
-              primarySwatch: Colors.orange,
-            ),
+            theme: theme.buildThemeData(isDark: false),
             home: HomeScreen(),
           );
         },

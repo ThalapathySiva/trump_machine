@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:trump_machine/models/quote.dart';
 
-import 'package:trump_machine/services/services.dart';
+import 'package:trump_machine/models/quote.dart';
 
 class FaveIcon extends StatefulWidget {
   final QuoteModel quote;
@@ -18,7 +16,6 @@ class _FaveIconState extends State<FaveIcon> {
   IconData icon;
   @override
   Widget build(BuildContext context) {
-    var service = Provider.of<Services>(context);
     fave ? icon = Icons.favorite : icon = Icons.favorite_border;
 
     return IconButton(
@@ -27,13 +24,13 @@ class _FaveIconState extends State<FaveIcon> {
           if (fave) {
             setState(() {
               fave = false;
-              service.removeQuoteFromFavorites(widget.quote);
+              //add
               print('removing ${widget.quote.value}');
             });
           } else {
             setState(() {
               fave = true;
-              service.addQuoteToFavorites(widget.quote);
+              //remove
 
               print('adding ${widget.quote.value}');
             });

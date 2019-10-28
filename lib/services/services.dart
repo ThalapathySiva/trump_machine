@@ -3,37 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:trump_machine/models/quote.dart';
-import 'package:trump_machine/services/database_service.dart';
 
 class Services extends ChangeNotifier {
-  final _quoteProvider = DBQuoteProvider();
-
   List<QuoteModel> quoteList = [];
   List tagList = [];
   List faveList = [];
-
-  addQuoteToFavorites(QuoteModel quote) async {
-    _quoteProvider.insert(DBQuote(
-      title: quote.quoteID,
-      content: quote.value,
-    ));
-    notifyListeners();
-  }
-
-  getFavoriteList() async {
-    List<Map<String, dynamic>> records =
-        await _quoteProvider.db.query("favorite_DBQuotes");
-    if (records != null && records.isNotEmpty) {
-      records.map((item) {
-        faveList.add(QuoteModel.fromJson(item));
-      });
-    }
-  }
-
-  removeQuoteFromFavorites(QuoteModel quote) async {
-    _quoteProvider.delete(quote.quoteID);
-    notifyListeners();
-  }
 
   int votes = 0;
   String api = 'https://api.tronalddump.io/search/quote?query=';

@@ -1,6 +1,10 @@
 import 'dart:core';
+import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'package:trump_machine/models/DBQuote.dart';
 
 final String tableDBQuote = 'favorite_DBQuotes';
 final String columnId = '_id';
@@ -8,78 +12,51 @@ final String columnTitle = 'title';
 final String columnContent = 'quote';
 final String columnDone = 'done';
 
-class DBQuote {
-  int id;
-  String title;
-  String content;
-  bool done;
-
-  Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{
-      columnTitle: title,
-      columnContent: content,
-      columnDone: done == true ? 1 : 0
-    };
-    if (id != null) {
-      map[columnId] = id;
-    }
-    return map;
-  }
-
-  DBQuote({
-    this.title,
-    this.content,
-    this.id,
-  });
-
-  DBQuote.fromMap(Map<String, dynamic> map) {
-    id = map[columnId];
-    title = map[columnTitle];
-    content = map[columnContent];
-    done = map[columnDone] == 1;
-  }
-}
-
 class DBQuoteProvider {
-  Database db;
+  DBQuoteProvider._();
+  static final DBQuoteProvider db = DBQuoteProvider._();
 
-  Future open(String path) async {
-    db = await openDatabase(path, version: 1,
+  static Database _database;
+
+  Future<Database> get database async {
+    if (_database != null) return _database;
+
+    // if _database is null we instantiate it
+    _database = await initDB();
+    return _database;
+  }
+
+  initDB() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, "TestDB.db");
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute('''
-create table $tableDBQuote ( 
-  $columnId integer primary key autoincrement, 
-  $columnTitle text not null,
-  $columnContent text not null,
-  $columnDone integer not null)
-''');
+      await db.execute("CREATE TABLE Client ("
+          "id INTEGER PRIMARY KEY,"
+          "title TEXT,"
+          "content TEXT,"
+          "blocked BIT"
+          ")");
     });
   }
 
-  Future<DBQuote> insert(DBQuote dBQuote) async {
-    dBQuote.id = await db.insert(tableDBQuote, dBQuote.toMap());
-    return dBQuote;
+  newQuote(DBQuote newQuote) async {
+    final db = await database;
+    var res = await db.insert("DBQuote", newQuote.toJson());
+    return res;
   }
 
-  Future<DBQuote> getDBQuote(String title) async {
-    List<Map> maps = await db.query(tableDBQuote,
-        columns: [columnId, columnDone, columnTitle, columnContent],
-        where: '$columnTitle = ?',
-        whereArgs: [title]);
-    if (maps.length > 0) {
-      return DBQuote.fromMap(maps.first);
-    }
-    return null;
+  getFavoriteList() async {
+    final db = await database;
+    var res = await db.query("DBQuote");
+    List<DBQuote> list =
+        res.isNotEmpty ? res.map((c) => DBQuote.fromJson(c)).toList() : [];
+    return list;
   }
 
-  Future<int> delete(String title) async {
-    return await db
-        .delete(tableDBQuote, where: '$columnTitle = ?', whereArgs: [title]);
-  }
-
-  Future<int> update(DBQuote dBQuote) async {
-    return await db.update(tableDBQuote, dBQuote.toMap(),
-        where: '$columnTitle = ?', whereArgs: [dBQuote.title]);
+  deleteQuote(int id) async {
+    final db = await database;
+    db.delete("Quote", where: "id = ?", whereArgs: [id]);
   }
 
   Future close() async => db.close();

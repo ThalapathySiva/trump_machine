@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:trump_machine/services/database_service.dart';
 
 import 'package:trump_machine/services/services.dart';
 import 'package:trump_machine/shared/bot_nav.dart';
@@ -12,11 +13,9 @@ class DumbestEverScreen extends StatefulWidget {
 }
 
 class _DumbestEverScreenState extends State<DumbestEverScreen> {
-  final Services services = Services();
-
   @override
   void initState() {
-    services.getFavoriteList();
+    //GET FAVE LIST
     super.initState();
   }
 

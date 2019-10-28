@@ -6,7 +6,20 @@ import 'package:trump_machine/services/services.dart';
 import 'package:trump_machine/shared/bot_nav.dart';
 import 'package:trump_machine/widgets/top_bar.dart';
 
-class DumbestEverScreen extends StatelessWidget {
+class DumbestEverScreen extends StatefulWidget {
+  @override
+  _DumbestEverScreenState createState() => _DumbestEverScreenState();
+}
+
+class _DumbestEverScreenState extends State<DumbestEverScreen> {
+  final Services services = Services();
+
+  @override
+  void initState() {
+    services.getFavoriteList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var service = Provider.of<Services>(context);

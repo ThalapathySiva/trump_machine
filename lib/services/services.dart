@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:trump_machine/models/quote.dart';
+import 'package:trump_machine/models/DBQuote.dart';
 
 class Services extends ChangeNotifier {
-  List<QuoteModel> quoteList = [];
   List tagList = [];
   List faveList = [];
+  List quoteList = [];
 
   int votes = 0;
   String api = 'https://api.tronalddump.io/search/quote?query=';
@@ -40,7 +40,7 @@ class Services extends ChangeNotifier {
           print('found nothing');
         } else {
           for (var item in res['_embedded']['quotes']) {
-            quoteList.add(QuoteModel.fromJson(item));
+            quoteList.add(DBQuote.fromApi(item));
           }
         }
       }

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:trump_machine/models/quote.dart';
+import 'package:trump_machine/models/DBQuote.dart';
+import 'package:trump_machine/services/database_service.dart';
 
 class FaveIcon extends StatefulWidget {
-  final QuoteModel quote;
+  final DBQuote quote;
 
   const FaveIcon({Key key, this.quote}) : super(key: key);
 
@@ -24,7 +24,7 @@ class _FaveIconState extends State<FaveIcon> {
           if (fave) {
             setState(() {
               fave = false;
-              //add
+              DBQuoteProvider.db.newQuote(dBQuoteFromJson(widget.quote));
               print('removing ${widget.quote.value}');
             });
           } else {

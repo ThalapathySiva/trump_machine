@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trump_machine/services/database_service.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -15,6 +16,14 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
         child: AppBar(
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.share),
+          onPressed: () {
+            DBQuoteProvider.db.getFavoriteList();
+          },
+        )
+      ],
       brightness: Brightness.dark,
       iconTheme: IconThemeData(color: Colors.white),
       automaticallyImplyLeading: true,

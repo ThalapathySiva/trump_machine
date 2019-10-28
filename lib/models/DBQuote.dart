@@ -1,35 +1,36 @@
 /// ClientModel.dart
 import 'dart:convert';
 
-DBQuote clientFromJson(String str) {
-  final jsonData = json.decode(str);
-  return DBQuote.fromJson(jsonData);
+DBQuote dBQuoteFromJson(json) {
+  final map = {
+    "title": json["value"],
+  };
+  return DBQuote.fromJson(map);
 }
 
-String clientToJson(DBQuote data) {
+String dBQuoteToJson(DBQuote data) {
   final dyn = data.toJson();
   return json.encode(dyn);
 }
 
 class DBQuote {
   int id;
-  String title;
-  String content;
-  bool blocked;
+  bool blocked = true;
+  final String value;
 
-  DBQuote({this.id, this.title, this.content, this.blocked});
+  DBQuote({this.id, this.value});
 
-  factory DBQuote.fromJson(Map<String, dynamic> json) => new DBQuote(
-        id: json["id"],
-        title: json["title"],
-        content: json["content"],
-        blocked: json["blocked"],
+  factory DBQuote.fromJson(json) => new DBQuote(
+        value: json["value"],
+      );
+
+  factory DBQuote.fromApi(json) => new DBQuote(
+        value: json["value"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
-        "content": content,
+        "value": value,
         "blocked": blocked,
       };
 }

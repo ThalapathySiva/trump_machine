@@ -13,14 +13,25 @@ class DumbestEverScreen extends StatefulWidget {
 }
 
 class _DumbestEverScreenState extends State<DumbestEverScreen> {
+  var faveList = List();
+
+  checkDB() async {
+    faveList = await DBQuoteProvider.db.getFavoriteList();
+  }
+
   @override
   void initState() {
     //GET FAVE LIST
+    checkDB();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (faveList.isNotEmpty) {
+      print('not emtpt');
+    }
     var service = Provider.of<Services>(context);
     return Scaffold(
       appBar: TopBar(

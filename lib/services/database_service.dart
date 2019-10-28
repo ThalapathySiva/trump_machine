@@ -28,10 +28,10 @@ class DBQuoteProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "TestDB.db");
+    String path = join(documentsDirectory.path, "dumbest.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE Client ("
+      await db.execute("CREATE TABLE DBQuote ("
           "id INTEGER PRIMARY KEY,"
           "title TEXT,"
           "content TEXT,"
@@ -50,7 +50,10 @@ class DBQuoteProvider {
     final db = await database;
     var res = await db.query("DBQuote");
     List<DBQuote> list =
-        res.isNotEmpty ? res.map((c) => DBQuote.fromJson(c)).toList() : [];
+        res.isNotEmpty ? res.map((q) => DBQuote.fromJson(q)).toList() : [];
+    if (list.isNotEmpty && list != null) {
+      print('I have data');
+    }
     return list;
   }
 

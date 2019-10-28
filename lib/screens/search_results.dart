@@ -7,6 +7,7 @@ import 'package:trump_machine/services/services.dart';
 import 'package:trump_machine/shared/bot_nav.dart';
 
 import 'package:trump_machine/widgets/fave_icon.dart';
+import 'package:trump_machine/widgets/top_bar.dart';
 import 'package:trump_machine/widgets/trump_card.dart';
 
 import 'package:url_launcher/url_launcher.dart';

@@ -5,6 +5,7 @@ import 'package:trump_machine/screens/search_results.dart';
 
 import 'package:trump_machine/services/services.dart';
 import 'package:trump_machine/shared/bot_nav.dart';
+import 'package:trump_machine/widgets/top_bar.dart';
 
 class DumbestEverScreen extends StatelessWidget {
   @override

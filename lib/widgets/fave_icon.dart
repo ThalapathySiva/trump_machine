@@ -6,7 +6,7 @@ import 'package:trump_machine/models/quote.dart';
 import 'package:trump_machine/services/services.dart';
 
 class FaveIcon extends StatefulWidget {
-  final Quote quote;
+  final QuoteModel quote;
 
   const FaveIcon({Key key, this.quote}) : super(key: key);
 
@@ -27,14 +27,13 @@ class _FaveIconState extends State<FaveIcon> {
           if (fave) {
             setState(() {
               fave = false;
-              service.faveList.remove(widget.quote.value);
-
+              service.removeQuoteFromFavorites(widget.quote);
               print('removing ${widget.quote.value}');
             });
           } else {
             setState(() {
               fave = true;
-              service.faveList.add(widget.quote.value);
+              service.addQuoteToFavorites(widget.quote);
 
               print('adding ${widget.quote.value}');
             });

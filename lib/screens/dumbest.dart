@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trump_machine/screens/search_results.dart';
 
 import 'package:trump_machine/services/services.dart';
 import 'package:trump_machine/shared/bot_nav.dart';
